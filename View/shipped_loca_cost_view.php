@@ -1,4 +1,4 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="chart_div" style="height: 90%;"></div>
 <script type="text/javascript">
         google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -22,8 +22,7 @@
           },
           bars: 'horizontal', // Required for Material Bar Charts.
           hAxis: {format: 'decimal'},
-           height: 450
-          /* colors: ['#1b9e77'] */
+          height: 625
         };
 
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
@@ -31,4 +30,3 @@
         chart.draw(dataTable, google.charts.Bar.convertOptions(options));
       }
 </script>
-<div id="chart_div"></div>

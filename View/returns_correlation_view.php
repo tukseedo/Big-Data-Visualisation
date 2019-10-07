@@ -1,8 +1,6 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-<h3 style="text-align: center;">Products With Same Return Location As Purchase Location</h3>
-<h4 style="text-align: center;"><?php echo json_encode($locaArea) .": ". json_encode($selectedArea); ?></h4>
-<div id="tbl_div"></div>
+<h3 id="dataHeading" style="text-align: center; height: auto;">Products With Same Return Location As Purchase Location</h3>
+<h4 id="dataSubHeading" style="text-align: center; height: auto;"><?php echo json_encode($locaArea) .": ". json_encode($selectedArea); ?></h4>
+<div id="tbl_div" style="height: 90%;"></div>
 
 <script type="text/javascript">
       google.charts.load('current', {'packages':['table']});

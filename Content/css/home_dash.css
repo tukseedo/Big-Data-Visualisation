@@ -1,42 +1,47 @@
-/* Remove the navbar's default margin-bottom and rounded borders */ 
+/* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
   }
-  
+
   /* Put Navbar in Center */
   #linkHeadings{
-      text-align: center;
+    text-align: center;
     position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+    left: 50%;
+    transform: translateX(-50%);
     }
 
   /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-  .row.content {height: 450px}
-  
+  .row.content { height: auto ;}
+
   /* Set gray background color and 100% height */
   .sidenav {
     padding-top: 20px;
     background-color: #f1f1f1;
     height: 100%;
+    width: 140px;
   }
-  
+  #rightSideNav{
+    position: absolute; 
+    right: 0px;
+  }
+
   /* Set black background color, white text and some padding */
   footer {
     background-color: #555;
     color: white;
     padding: 15px;
-    position: fixed;
-    bottom: 0px;
+    /* position: absolute; */
+    /* bottom: 0px; */
     width: 100%;
   }
-  
+
   /* On small screens, set height to 'auto' for sidenav and grid */
   @media screen and (max-width: 767px) {
     .sidenav {
       height: auto;
       padding: 15px;
     }
-    .row.content {height:auto;} 
+    .row.content {height:auto;}
   }

@@ -1,14 +1,12 @@
-<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
-<div id="reCo">
-  
-</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <?php
     require "../Model/vendor/autoload.php";
     include("../Model/db_connection.php");
     $connectionObj = new Connection();
 
     session_start();
-// echo $displayMsg = "Filtered Area: ". $_SESSION["fArea"] ." --- Filtered Location Selected: ". $_SESSION["fLocationSelected"];
+    
+    // Search Demiliter
     if(isset($_SESSION["fArea"]) && isset($_SESSION["fLocationSelected"])){
       $locaArea = $_SESSION["fArea"];
       $selectedArea = $_SESSION["fLocationSelected"];
@@ -27,7 +25,7 @@
           'limit' => $searchLimit,
           'sort' => ['Order ID' => 1]
         ]
-    );   
+    );
     // Putting Product_Names & Region in array using Order_ID
     $orders_col = $connectionObj->getOrders_Collection();
     $prod_name = array();
@@ -39,15 +37,23 @@
         array_push($prod_name, $orders->{'Product Name'});
         array_push($region, $orders->Region);
     }
-    
+
     // Call View
     include("../View/dashboard.php");
-    $dashboardObj = new Dashboard();
-    $dashboardObj->Header();
-    // $dashboardObj->SearchNavbar();
-    $dashboardObj->LeftBody();
-    // // Data Visualisation Will take Mid section
+    // Data Visualisation Will take Mid section
     include("../View/returns_correlation_view.php");
-    $dashboardObj->RightBody();
-    $dashboardObj->Footer();
 ?>
+<script type="text/javascript">
+  // Putting Table inside view
+  let displayInfo = document.getElementById('displayInfo');
+  let tblInfo = document.getElementById('tbl_div');
+  displayInfo.parentNode.replaceChild(tblInfo, displayInfo);
+
+  // Adding headings
+  let midSection = document.getElementById('midSection');
+  let heading  = document.getElementById('dataHeading');
+  let subHeading  = document.getElementById('dataSubHeading');
+
+  midSection.insertBefore(subHeading, midSection.childNodes[0]);
+  midSection.insertBefore(heading, midSection.childNodes[0]);
+</script>
