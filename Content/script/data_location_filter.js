@@ -27,31 +27,40 @@ function visualisationSearch(visualType){
     setDataVisual("shipped_loca_cost");
     displayDashMessage('The Shipped Location With Regards To Cost');
   }
+  else if(visualType == 'order_priority'){
+    setDataVisual('order_priority');
+    displayDashMessage('The Ratio Of Order Priorities In Each Location');
+  }
 }
 
 function dataLocationFilter(){
   let selectedLocation = document.getElementById('selectedArea');
-  let value_selectedLocation =selectedLocation.options[selectedLocation.selectedIndex].value;
+  let value_selectedLocation = selectedLocation.options[selectedLocation.selectedIndex].value;
 
   // Sending Selected Index Value and Area Name for Data Visualisation
   if(dataVisual == 'returns_correlation'){
-      $.get('/Global_Superstore/View/session_setter.php', {filteredArea: area, filteredLocationSelected: value_selectedLocation},
-      function(data){
+      $.get('/Global_Superstore/Controller/session_setter.php', {filteredArea: area, filteredLocationSelected: value_selectedLocation},
+      function(){
         location.href = "http://localhost/Global_Superstore/Controller/returns_correlation.php";
       });
-      // location.href = "http://localhost/Global_Superstore/View/receiver.php";
       // $("#midSection").load("receiver.php");
   }
   else if(dataVisual == 'products_purchased'){
-    $.get('/Global_Superstore/View/session_setter.php', {filteredArea: area, filteredLocationSelected: value_selectedLocation},
-      function(data){
+    $.get('/Global_Superstore/Controller/session_setter.php', {filteredArea: area, filteredLocationSelected: value_selectedLocation},
+      function(){
         location.href = "http://localhost/Global_Superstore/Controller/products_purchased.php";
       });
   }
-  else if(dataVisual = 'shipped_loca_cost'){
-    $.get('/Global_Superstore/View/session_setter.php', {filteredArea: area, filteredLocationSelected: value_selectedLocation},
-      function(data){
+  else if(dataVisual == 'shipped_loca_cost'){
+    $.get('/Global_Superstore/Controller/session_setter.php', {filteredArea: area, filteredLocationSelected: value_selectedLocation},
+      function(){
         location.href = "http://localhost/Global_Superstore/Controller/shipped_loca_cost.php";
+      });
+  }
+  else if(dataVisual == 'order_priority'){
+    $.get('/Global_Superstore/Controller/session_setter.php', {filteredArea: area, filteredLocationSelected: value_selectedLocation},
+      function(){
+        location.href = "http://localhost/Global_Superstore/Controller/loca_order_priority.php";
       });
   }
 }
