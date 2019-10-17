@@ -1,9 +1,5 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <?php
-    require "../Model/vendor/autoload.php";
-    include("../Model/db_connection.php");
-    $connectionObj = new Connection();
-
     session_start();
     // Search Demiliter
     if(isset($_SESSION["fArea"]) && isset($_SESSION["fLocationSelected"])){
@@ -14,16 +10,10 @@
       $locaArea = 'Region';
       $selectedArea = 'Southern Africa';
     }
-    $searchLimit = 20;
-    // Getting
-    $orders_col = $connectionObj->getOrders_Collection();
-    $ordersShipping = $orders_col->find(
-        [$locaArea => $selectedArea],
-        [
-        'projection' => ['_id' => 0, 'Product Name' => 1, 'Shipping Cost' => 1],
-        'limit' => $searchLimit
-        ]
-    );
+
+    include_once("../Model/orders_model.php");
+    $shippingCost = new Orders();
+    $ordersShipping = $shippingCost->getProductsByShipCost($locaArea, $selectedArea);
 
     $prod_name = array();
     $shipping_cost = array();
@@ -35,7 +25,7 @@
     //   Call View
     include("../View/dashboard.php");
     // Data Visualisation Will take Mid section
-    include("../View/shipped_loca_cost_view.php");
+    include("../View/DataVisuals/shipped_loca_cost_view.php");
 ?>
 <script type="text/javascript">
   // Putting Table inside view

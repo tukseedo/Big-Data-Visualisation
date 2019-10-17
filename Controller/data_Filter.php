@@ -1,33 +1,24 @@
 <?php
-    require "../Model/vendor/autoload.php";
-    include("../Model/db_connection.php");
-    $ordersObj = new Connection();
-    
     // Delimiter
     $lifatsi = htmlspecialchars($_GET["selectedArea"]);
 
     session_start();
     $_SESSION["data_loca_filter"] = $lifatsi;
-    // echo $lifatsi;
+
     $limit = null;
 
-    $region_col = null;//$_SESSION["regionCollection"];
+    $region_col = null;
     try{
         $location_dump = array();
         $uniqueLocation = array();
         if(isset($region_col)){
-        
+          echo "Could Not Read Data";
         }
         else{
-            $orders_col = $ordersObj->getOrders_Collection();
-            $order_location = $orders_col->find(
-                [],
-                [
-                    'projection' => ['_id' => 0, $lifatsi => 1],
-                    'limit' => $limit,
-                    'sort' => [$lifatsi => 1]
-                ]
-            );
+            // Data filter for the drop down list
+            include_once("../Model/orders_model.php");
+            $allOrders = new Orders();
+            $order_location = $allOrders->getAllOrders($lifatsi, $limit);
 
             foreach($order_location as $getLocation){
                 array_push($location_dump, $getLocation->$lifatsi);

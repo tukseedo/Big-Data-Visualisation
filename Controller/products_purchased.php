@@ -1,9 +1,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <?php
-    require "../Model/vendor/autoload.php";
-    include("../Model/db_connection.php");
-    $ordersObj = new Connection();
-
+    $locaArea;
+    $selectedArea;
     session_start();
     // Search Demiliter
     if(isset($_SESSION["fArea"]) && isset($_SESSION["fLocationSelected"])){
@@ -14,17 +12,10 @@
       $locaArea = 'Country';
       $selectedArea = 'South Africa';
     }
-    $searchLimit = 20;
 
-    $orders_col = $ordersObj->getOrders_Collection();
-    $custOrders = $orders_col->find(
-        [$locaArea => $selectedArea],
-        [
-            'projection' => ['_id' => 0, 'Product Name' => 1, 'Order Date' => 1, 'Ship Date' => 1],
-            'limit' => $searchLimit,
-            // 'sort' => ['Product Name' => 1]
-        ]
-    );
+    include_once("../Model/orders_model.php");
+    $prodPurchase = new Orders();
+    $custOrders = $prodPurchase->getProductsByShipDate($locaArea, $selectedArea);
 
     // Putting Product Names in array to make array unique
     $prodName = array();
@@ -47,7 +38,7 @@
     // Call View
     include("../View/dashboard.php");
     // Data Visualisation Will take Mid section
-    include("../View/products_purchased_view.php");
+    include("../View/DataVisuals/products_purchased_view.php");
 ?>
 <script type="text/javascript">
   // Putting Table inside view

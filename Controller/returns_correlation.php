@@ -1,11 +1,6 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <?php
-    require "../Model/vendor/autoload.php";
-    include("../Model/db_connection.php");
-    $connectionObj = new Connection();
-
     session_start();
-    
     // Search Demiliter
     if(isset($_SESSION["fArea"]) && isset($_SESSION["fLocationSelected"])){
       $locaArea = $_SESSION["fArea"];
@@ -16,18 +11,13 @@
       $selectedArea = 'Southern Africa';
     }
 
-    $searchLimit = 20;
     // Getting Order_IDs from RETURNS
-    $returns_col = $connectionObj->getReturns_Collection();
-    $returns = $returns_col->find(
-        [$locaArea => $selectedArea],
-        [
-          'limit' => $searchLimit,
-          'sort' => ['Order ID' => 1]
-        ]
-    );
+    include_once("../Model/returns_model.php");
+    $getReturns = new Returns();
+    $returns = $getReturns->getReturnsByOrder($locaArea, $selectedArea);
+
     // Putting Product_Names & Region in array using Order_ID
-    $orders_col = $connectionObj->getOrders_Collection();
+    $orders_col = $getReturns->connectionObj->getOrders_Collection();
     $prod_name = array();
     $region = array();
     foreach($returns as $custOrder){
@@ -41,7 +31,7 @@
     // Call View
     include("../View/dashboard.php");
     // Data Visualisation Will take Mid section
-    include("../View/returns_correlation_view.php");
+    include("../View/DataVisuals/returns_correlation_view.php");
 ?>
 <script type="text/javascript">
   // Putting Table inside view
