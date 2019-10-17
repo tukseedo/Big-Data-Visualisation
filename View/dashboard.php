@@ -1,3 +1,8 @@
+<?php
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +32,8 @@
               <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+              <li><a><?php echo $_SESSION['userName']; ?></a></li>
+              <li><a href="../View/main_view.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
           </div>
         </div>
@@ -41,21 +47,23 @@
   <div class="row content" style="height: 100%;">
 
           <div class="col-sm-2 sidenav">
+            <p><label for="textinput">Data Visuals</label></p>
             <p><a href="javascript:visualisationSearch('returns_correlation')">Correlation of returns with location</a></p>
             <p><a href="javascript:visualisationSearch('products_purchased')">Products purchased</a></p>
             <p><a href="javascript:visualisationSearch('shipped_loca_cost')">Product shipping cost</a></p>
+            <p><a href="javascript:visualisationSearch('order_priority')">Order Priority</a></p>
 
-            <div class="well" style="position: relative; top: 50px;">
-              <p>ADS</p>
+             <div class="well" style="position: relative; top: 50px;">
+              <p>Data Analysis</p>
             </div>
-            <div class="well" style="position: relative; top: 50px;">
+            <!--<div class="well" style="position: relative; top: 50px;">
               <p>ADS</p>
-            </div>
+            </div> -->
           </div>
 
 
           <!-- Middle Section -->
-          <div class="col-sm-8 text-left" id="midSection" style="height: 100%; width: 1070px;">
+          <div class="col-sm-8 text-left" id="midSection">
             <div id="displayInfo">
               <h1>Welcome</h1><hr>
               <h3 id="dashMessage">Choose A Data Visualisation Sample On Left Side Bar</h3>
@@ -64,16 +72,16 @@
 
           <!-- Rigth Body -->
           <!-- <div class="col-sm-2 sidenav" id="rightSideNav">
-            
+
           </div> -->
 
   </div>
 </div>
 
 <!-- Footer -->
-  <!-- <footer class="container-fluid text-center">
-      <p>Footer Text</p>
-  </footer> -->
+  <footer class="container-fluid text-center">
+      <p>Global Superstore</p>
+  </footer>
 
   <script src="../Content/script/select_location.js"></script>
   <script src="../Content/script/data_location_filter.js"  type="text/javascript"></script>
